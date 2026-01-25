@@ -1,0 +1,12 @@
+## Interface: 60200
+## Title: SpartanUI: |CFF0070DDChinese Font|r
+## Notes: Manages the Artwork and layout that SpartanUI uses
+## Version: 1.0.0
+## Author: Wutname1
+## RequiredDeps: SpartanUI
+## X-Curse-Packaged-Version: r6
+## X-Curse-Project-Name: SpartanUI: Chinese Font
+## X-Curse-Project-ID: spartanui-chinese-font
+## X-Curse-Repository-ID: wow/spartanui-chinese-font/mainline
+
+SpartanUI_ChineseFont.lua
