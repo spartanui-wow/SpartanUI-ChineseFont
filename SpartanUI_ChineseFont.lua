@@ -1,25 +1,36 @@
-local spartan = LibStub("AceAddon-3.0"):GetAddon("SpartanUI");
-local ChineseFont = spartan:NewModule("ChineseFont");
+---@class SUI
+local SUI = SUI
+local ChineseFont = SUI:NewModule('ChineseFont')
+
+-- Register Chinese fonts with LibSharedMedia
+SUI.Lib.LSM:Register('font', 'Noto Sans CJK SC', [[Interface\AddOns\SpartanUI_ChineseFont\Fonts\NotoSansCJKsc-Regular.otf]])
+SUI.Lib.LSM:Register('font', 'Noto Sans CJK TC', [[Interface\AddOns\SpartanUI_ChineseFont\Fonts\NotoSansCJKtc-Regular.otf]])
 
 function ChineseFont:OnInitialize()
-	if GetLocale() == "zhCN" then
-		DB.font.Primary.Face = "Custom"
-		DB.font.Core.Face = "Custom"
-		DB.font.Player.Face = "Custom"
-		DB.font.Party.Face = "Custom"
-		DB.font.Raid.Face = "Custom"
-		DB.font.Path = "interface\\addons\\SpartanUI_ChineseFont\\Fonts\\NotoSansCJKsc-Regular.otf"
-	end
-	if GetLocale() == "zhTW" then
-		DB.font.Primary.Face = "Custom"
-		DB.font.Core.Face = "Custom"
-		DB.font.Player.Face = "Custom"
-		DB.font.Party.Face = "Custom"
-		DB.font.Raid.Face = "Custom"
-		DB.font.Path = "interface\\addons\\SpartanUI_ChineseFont\\Fonts\\NotoSansCJKtc-Regular.otf"
+	-- Set the default font based on locale
+	local locale = GetLocale()
+
+	if locale == 'zhCN' then
+		-- Set Simplified Chinese font as default
+		if SUI.Font and SUI.Font.DB then
+			SUI.Font.DB.Modules.Global.Face = 'Noto Sans CJK SC'
+			SUI.Lib.LSM:SetDefault('font', 'Noto Sans CJK SC')
+		end
+	elseif locale == 'zhTW' then
+		-- Set Traditional Chinese font as default
+		if SUI.Font and SUI.Font.DB then
+			SUI.Font.DB.Modules.Global.Face = 'Noto Sans CJK TC'
+			SUI.Lib.LSM:SetDefault('font', 'Noto Sans CJK TC')
+		end
 	end
 end
 
 function ChineseFont:OnEnable()
-
+	-- Refresh all fonts to apply the new font face
+	local locale = GetLocale()
+	if locale == 'zhCN' or locale == 'zhTW' then
+		if SUI.Font then
+			SUI.Font:Refresh()
+		end
+	end
 end
